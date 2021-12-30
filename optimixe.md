@@ -1,3 +1,0 @@
-# zgipp
-# ugligy.js
-# webpack
