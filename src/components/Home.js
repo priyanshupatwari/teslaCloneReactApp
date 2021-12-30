@@ -13,7 +13,7 @@ const Home = () => {
        range, time, topSpeed, peakPower } = elem;
       return (
        <Section
-        key = {id}
+        id = {id}
         title={title}
         desc={description}
         bgImg={image}

@@ -4,46 +4,51 @@ import styled from 'styled-components';
 import Fade from 'react-reveal/Fade';
 import { useState } from 'react';
 const Section = (prop) => {
-  const { title, desc, bgImg, range, time, topSpeed, peakPower,
+  const { id, title, desc, bgImg, range, time, topSpeed, peakPower,
     leftBtnText, rightBtnText } = prop;
+  console.log(`id is `, id)
   const [hover, setHover] = useState(false)
   return (
-    <Wrap bgImage={bgImg}
-      onClick={() => setHover(!hover)}
-    >
-      <Fade bottom>
-        <ItemText>
-          <h1>{title}</h1>
-          <p>{desc} .</p>
-        </ItemText>
-      </Fade>
-      {
-        range &&
-        (<div className="InfoContain">
-          <div className="info"  style={{transform: `${ hover ? 'translateX(0)': 'translateX(100%)'}`}}>
-            <li><span> Range </span> <span> {range} miles</span></li>
-            <li><span> Time </span> <span> {time}s</span></li>
-            <li><span> Top Speed </span> <span> {topSpeed}miph</span></li>
-            <li><span> Peak Power </span> <span> {peakPower}hp</span></li>
-          </div>
-        </div>)
-      }
-      <Buttons>
+    <div id={`ID-${id}`}>
+      <Wrap bgImage={bgImg}
+        onClick={() => setHover(!hover)}
+
+      >
         <Fade bottom>
-          <ButtonGroup>
-            <LeftButton>
-              {leftBtnText}
-            </LeftButton>
-            {rightBtnText &&
-              <RightButton>
-                {rightBtnText}
-              </RightButton>
-            }
-          </ButtonGroup>
+          <ItemText>
+            <h1>{title}</h1>
+            <p>{desc} .</p>
+          </ItemText>
         </Fade>
-        <DownArrow src='/images/down-arrow.svg' />
-      </Buttons>
-    </Wrap>
+        {
+          range &&
+          (<div className="InfoContain">
+            <div className="info" style={{ transform: `${hover ? 'translateX(-10%)' : 'translateX(100%)'}` }}>
+              <li><span> Range </span> <span> {range} miles</span></li>
+              <li><span> Time </span> <span> {time}s</span></li>
+              <li><span> Top Speed </span> <span> {topSpeed}miph</span></li>
+              <li><span> Peak Power </span> <span> {peakPower}hp</span></li>
+            </div>
+          </div>)
+        }
+        <Buttons>
+          <Fade bottom>
+            <ButtonGroup>
+              <LeftButton>
+                {leftBtnText}
+              </LeftButton>
+              {rightBtnText &&
+                <RightButton>
+                  {rightBtnText}
+                </RightButton>
+              }
+            </ButtonGroup>
+          </Fade>
+          <DownArrow src='/images/down-arrow.svg' />
+        </Buttons>
+      </Wrap>
+    </div>
+
   )
 }
 
@@ -84,7 +89,7 @@ const ButtonGroup = styled.div`
   align-items: center;
 `
 const LeftButton = styled.div`
-  background: rgba(23,26,32,0.9);
+  background: rgb(23, 26, 32);
   height:38.5px;
   width: 226.5px;
   color: white;
@@ -96,11 +101,21 @@ const LeftButton = styled.div`
   cursor: pointer;
   font-size: .9rem;
   margin: .7rem;
-  
+  &:hover{
+  background: #171a20a4;
+  transform: scale(1.05);
+  }
+  &:active{
+  transition: transform 50ms ease-out;
+  transform: scale(0.95);
+  }
 `
 const RightButton = styled(LeftButton)`
   background-color: white;
   color: #393c41;
+  &:hover{
+    background: #ffffffb2;
+  }
 `
 
 const DownArrow = styled.img`

@@ -3,22 +3,27 @@ import styled from 'styled-components';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import carInfo from '../common/carInfo'
-
-const cars = carInfo.map((car) => car.title)
-const uniqueCars = [...new Set(cars)];
-
+const cars = carInfo.map((car) => {
+  return { title: car.title, id: car.id }
+})
+// const uniqueCars = [...new Set(cars)];
+console.log(cars);
 export default function Header() {
   const [toggleShow, setToggleShow] = useState(false)
   return (
     <>
       <Container>
-        <a style={{ width: '160px', height: '25px', zIndex:'11'}}>
+        <a style={{ width: '160px', height: '25px', zIndex: '11' }}>
           <img src="/images/logo.svg" alt="" style={{ width: '100%', height: '100%' }} />
         </a>
         <Menu>
           {
-            uniqueCars.map(
-              (elem, index) => <p key={index}><a href="">{elem}</a></p>
+            cars.map(
+              (elem, index) => 
+              <p onClick={() => setToggleShow(false)} key={index}>
+                <a href={`#ID-${elem.id}`}>{elem.title}
+              </a>
+              </p>
             )
           }
         </Menu>
@@ -36,8 +41,11 @@ export default function Header() {
           <CloseIcon onClick={() => setToggleShow(false)} />
         </CloseWrapper>
         {
-          uniqueCars.map(
-            (elem, index) => <li key={index}><a href="">{elem}</a></li>
+          cars.map(
+            (elem, index) =>
+              <a onClick={() => setToggleShow(false)} href={`#ID-${elem.id}`}>
+                <li key={index}>{elem.title}</li>
+              </a>
           )
         }
 
@@ -110,9 +118,6 @@ const CustomMenu = styled.div`
  margin-left: 10px;
  cursor: pointer;
   display: block;
- /* @media(min-width:1100px){
-  display: none;
- } */
 `
 
 const BurgerNav = styled.div`
@@ -134,23 +139,21 @@ const BurgerNav = styled.div`
  display: flex;
  flex-direction: column;
  text-align: start;
- /* @media(min-width:1100px){
-  transform: translateX(100%);
- } */
  transition: transform .2s ease-out;
  transform: ${({ show }) => show ? 'translateX(0)' : 'translateX(100%)'};
- li{
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, .2);
+ 
+ li{ 
+    padding: 15px 1rem;
+    border-radius: 1rem;
     text-transform: capitalize;
-    transition: transform 0.4s ;
     &:hover{
-      transform:translateX(7px);
+      background-color: #41393921;
     }
-    a{
-     font-weight: 500;
-    }
- }
+  }
+
+  a{
+   font-weight: 500;
+  }
 `
 const CloseWrapper = styled.div`
  display: flex;
